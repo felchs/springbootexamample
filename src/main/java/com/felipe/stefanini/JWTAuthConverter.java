@@ -1,6 +1,7 @@
 package com.felipe.stefanini;
 
 import com.nimbusds.jwt.JWTClaimNames;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -11,9 +12,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,19 +22,19 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
     private final JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter =
             new JwtGrantedAuthoritiesConverter();
 
-    private final String principalAttribute = "preferred_username";
+    @Value("${jwt.auth.converter.principle-attribute}")
+    private String principalAttribute;
+
+    @Value("${jwt.auth.converter.resource-id}")
+    private String resourceId;
 
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwtSource) {
-//        var authorities = Stream.concat(
-//                jwtGrantedAuthoritiesConverter.convert(jwtSource).stream(),
-//                extractResourceRoles(jwtSource).stream()
-//        ).collect(Collectors.toSet());
-        var authorities = Stream.concat(
+        Collection<GrantedAuthority> authorities = Stream.concat(
                 jwtGrantedAuthoritiesConverter.convert(jwtSource).stream(),
                 extractResourceRoles(jwtSource).stream()
-        ).collect(Collectors.toList());
-
+        ).collect(Collectors.toSet());
+        
         return new JwtAuthenticationToken(jwtSource, authorities, getPrincipalClaimName(jwtSource));
     }
 
@@ -47,7 +46,7 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         return jwtSource.getClaim(clainName);
     }
 
-    private Collection<Object> extractResourceRoles(Jwt jwtSource) {
+    private Collection<GrantedAuthority> extractResourceRoles(Jwt jwtSource) {
         Map<String, Object> resourceAccess;
         Map<String, Object> resource;
         Collection<String> resourceRoles;
@@ -58,11 +57,11 @@ public class JWTAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
 
         resourceAccess = jwtSource.getClaim("resource_access");
 
-        if (resourceAccess.get("felipe-rest-api") == null) {
+        if (resourceAccess.get(resourceId) == null) {
             return Set.of();
         }
 
-        resource = (Map<String, Object>) resourceAccess.get("felipe-rest-api");
+        resource = (Map<String, Object>) resourceAccess.get(resourceId);
 
         resourceRoles = (Collection<String>) resource.get("roles");
 
