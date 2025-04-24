@@ -142,7 +142,7 @@ docker --version
 To download the Keycloak image from Docker Hub, run this command:
 
 ```
-docker pull felipeforexmj/keycloak:latest
+docker pull felipeforexmj/keycloack:v1
 ```
 - This will fetch the Keycloak image you need from Docker Hub.
 
@@ -151,7 +151,8 @@ docker pull felipeforexmj/keycloak:latest
 🏃‍♂️ 3. Run the Keycloak Container
 
 ```
-docker run -d -p 8080:8080 --name keycloake-felipe -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin felipeforexmj/keycloack start-dev
+docker run -d -p 8080:8080 --name keycloake-felipe -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin felipeforexmj/keycloack:v1 start-dev
+
 ```
 👉 DONT FORGET to add KEYCLOAK_ADMIN and KEYCLOAK_ADMIN_PASSWORD environment variables
 
