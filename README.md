@@ -4,6 +4,11 @@ This project is a secure Spring Boot REST API that demonstrates role-based autho
 
 ---
 
+## 🎥 See this video to understand how the project was configured:
+- > https://youtu.be/Itf728XkEX4
+
+---
+
 ## 🧰 Prerequisites
 
 Make sure you have the following installed before running the project:
@@ -37,11 +42,6 @@ You can run the application in two ways:
 mvn spring-boot:run
 ```
 
-2. Via the generated JAR:
-
-```
-java -jar target/hello-api-0.0.1-SNAPSHOT.jar
-```
 The API will be available at: http://localhost:8081
 
 We are using port 8081 because Keyclock will be running under 8080
