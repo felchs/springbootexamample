@@ -1,11 +1,6 @@
-# 📘 Hello STEFANINI API — Spring Boot + Maven + OAuth2 JWT
+# 📘 Hello SPRINGBOOOT API — Spring Boot + Maven + OAuth2 JWT
 
 This project is a secure Spring Boot REST API that demonstrates role-based authorization using OAuth2 and JWT tokens. It integrates with a Keycloak realm and protects endpoints based on user roles.
-
----
-
-## 🎥 See this video to understand how the project was configured:
-- > https://youtu.be/Itf728XkEX4
 
 ---
 
@@ -25,8 +20,8 @@ Make sure you have the following installed before running the project:
 Clone the repository and navigate into the project directory:
 
 ```bash
-git clone git@github.com:felchs/stefanini.git
-cd stefanini
+git clone git@github.com:felchs/springbootexamample.git
+cd springbootexamample
 ```
 
 Then build the project:
@@ -118,7 +113,7 @@ JWT Debugger
 
 ---
 
-## 🚀 How to Download Docker, Pull the felipe-stefanini Image, and Run Keycloak
+## 🚀 How to Download Docker, Pull the felipe-springbootexamample Image, and Run Keycloak
 
 ## 👉 1. Download Docker
 
